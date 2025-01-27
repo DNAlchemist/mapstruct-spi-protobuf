@@ -1,4 +1,4 @@
-package no.entur.mapstruct.spi.protobuf;
+package io.github.dnalchemist.mapstruct.spi.protobuf;
 
 /*-
  * #%L
@@ -23,12 +23,15 @@ package no.entur.mapstruct.spi.protobuf;
  * #L%
  */
 
-/**
- * @author Thomas Kratz
- */
-public enum Permission {
+public class MultiNumber {
+	Number number;
 
-	ADMIN,
-	USER,
-	NONE
+	public Number getNumber() {
+		return number;
+	}
+
+	public void setNumber(Number number) {
+		this.number = number;
+	}
+
 }

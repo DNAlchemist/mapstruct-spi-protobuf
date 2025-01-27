@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package no.entur.mapstruct.example;
+package io.github.dnalchemist.mapstruct.example;
 
 /*-
  * #%L
@@ -47,52 +47,16 @@ import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
-import no.entur.mapstruct.example.UserProtos.DepartmentDTO;
-import no.entur.mapstruct.example.UserProtos.PermissionDTO;
-import no.entur.mapstruct.example.UserProtos.UserDTO;
-import no.entur.mapstruct.spi.protobuf.Department;
-import no.entur.mapstruct.spi.protobuf.MultiNumber;
-import no.entur.mapstruct.spi.protobuf.Permission;
-import no.entur.mapstruct.spi.protobuf.Status;
-import no.entur.mapstruct.spi.protobuf.User;
+import io.github.dnalchemist.mapstruct.example.EnumPostfixOverrideProtos.EnumPostfixOverrideValuesDTO;
+import io.github.dnalchemist.mapstruct.spi.protobuf.EnumPostfixOverrideValues;
 
 @Mapper(collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS, unmappedSourcePolicy = ReportingPolicy.ERROR, unmappedTargetPolicy = ReportingPolicy.ERROR)
-public interface UserMapper {
+public interface EnumPostfixOverrideMapper {
 
-	UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+	EnumPostfixOverrideMapper INSTANCE = Mappers.getMapper(EnumPostfixOverrideMapper.class);
 
-	default String mapString(String in) {
-		if ((null == in) || in.isEmpty()) {
-			return null;
-		}
-		return in;
-	}
+	EnumPostfixOverrideValuesDTO map(EnumPostfixOverrideValues value);
 
-	default Double mapDouble(Double in) {
-		return in;
-	}
+	EnumPostfixOverrideValues map(EnumPostfixOverrideValuesDTO dto);
 
-	default MultiNumber map(UserProtos.MultiNumberDTO number) {
-		return new MultiNumber();
-	}
-
-	default UserProtos.MultiNumberDTO map(MultiNumber number) {
-		return UserProtos.MultiNumberDTO.newBuilder().build();
-	}
-
-	UserDTO map(User user);
-
-	User map(UserDTO userDTO);
-
-	Permission map(PermissionDTO permissionDTO);
-
-	PermissionDTO map(Permission perm);
-
-	Status map(UserProtos.EnumStatus permissionDTO);
-
-	UserProtos.EnumStatus map(Status perm);
-
-	Department map(DepartmentDTO departmentDTO);
-
-	DepartmentDTO map(Department department);
 }
