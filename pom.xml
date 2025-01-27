@@ -10,9 +10,6 @@
     <modules>
         <module>spi-impl</module>
         <module>usage</module>
-        <module>support-core</module>
-        <module>support-standard</module>
-        <module>support-lite</module>
     </modules>
     <properties>
         <grpc.api.version>2.50.1</grpc.api.version>
