@@ -27,7 +27,7 @@ package io.github.dnalchemist.mapstruct.spi.protobuf;
  * @author Thomas Kratz
  */
 public enum Permission {
-
+	UNSPECIFIED,
 	ADMIN,
 	USER,
 	NONE

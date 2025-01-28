@@ -84,10 +84,6 @@ public interface UserMapper {
 
 	User map(UserDTO userDTO);
 
-	Permission map(PermissionDTO permissionDTO);
-
-	PermissionDTO map(Permission perm);
-
 	Status map(UserProtos.EnumStatus permissionDTO);
 
 	UserProtos.EnumStatus map(Status perm);

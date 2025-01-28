@@ -1,5 +1,92 @@
 # Mapstruct SPI implementation for protocol buffers [![CircleCI](https://circleci.com/gh/entur/mapstruct-spi-protobuf.svg?style=svg)](https://circleci.com/gh/entur/mapstruct-spi-protobuf)
 
+
+---
+
+## This is a fork of the original project
+### Fork notes
+
+The MapStruct SPI library has a problem with Protobuf enums
+It uses the enums from the Protobuf contract for mapping.
+
+But if the consumer's contract is outdated and doesn’t include a new enum value from the producer, the mapping will set the value to `UNRECOGNIZED`.
+This causes data loss and breaks Protobuf’s backward compatibility.
+
+To fix this, we need to allow the library to handle enums as raw integer values so that even unknown values are not lost
+Example code generation of maptruct:
+
+Producer contract
+```protobuf
+enum UserEnum {
+    USER_ENUM_FIRST = 1;
+    USER_ENUM_SECOND = 2;
+};
+```
+
+Consumer contract
+```protobuf
+enum UserEnum {
+    USER_ENUM_FIRST = 1;
+};
+```
+
+When producer sent `USER_ENUM_SECOND` value
+
+Expected Consumer MapStruct Generated Result
+```java
+proto.getUserEnumValue() // 2 (Method get enum value operated with raw int value without any wrappers, so we didn't lost any new values that not presented in contract)
+```
+Actual Consumer MapStruct Generated Result
+```java
+proto.getUserEnum().getNumber() // -1 (Not presented in contract, UNRECOGNIZED enum value)
+```
+
+To fix this, we need to allow the library to handle enums as raw integer values so that even unknown values are not lost
+With this fork, we can use the raw integer value of the enum in the mapping, by enabling the flag `mapstructSpi.useEnumRawValue` as a compilerArg in the format of:
+
+`-AmapstructSpi.useEnumRawValue=true`
+
+### ! Important !
+This option changes mapping way of enums
+Enum will be mapped as raw integer value, not by enum name
+In this way will be used ordingal value of enums
+So if you using enum to enum mapping, these enums should have the same order of values
+
+### Maven example
+```xml
+<plugin>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <configuration>
+        <annotationProcessorPaths>
+            <path>
+                <groupId>io.github.dnalchemist.mapstruct.spi</groupId>
+                <artifactId>protobuf-spi-impl</artifactId>
+                <version>LATEST.VERSION</version>
+            </path>
+        </annotationProcessorPaths>
+        <compilerArgs>
+            <arg>-AmapstructSpi.useEnumRawValue=true</arg>
+        </compilerArgs>
+    </configuration>
+</plugin>
+```
+
+### Gradle example
+```groovy
+dependencies {
+    annotationProcessor "io.github.dnalchemist.mapstruct.spi:protobuf-spi-impl:LATEST.VERSION"
+}
+
+compileJava {
+    options.compilerArgs += [
+            "-AmapstructSpi.useEnumRawValue=true"
+    ]
+}
+```
+
+
+---
+
 This naming strategy helps [mapstruct](http://mapstruct.org/) generate working mapping code between your domain classes
 and protobuf classes. Both [fullblown Java protobuf](https://github.com/protocolbuffers/protobuf/tree/master/java)
 and [protolite](https://github.com/protocolbuffers/protobuf/blob/master/java/lite.md) classes suported.
