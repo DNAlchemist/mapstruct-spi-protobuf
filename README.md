@@ -84,7 +84,18 @@ compileJava {
 }
 ```
 
-
+### Release cheetsheet
+```shell
+# install gpg
+brew install gpg
+# generate gpg key
+gpg --gen-key
+# list key-ids
+gpg --list-keys
+# export key
+gpg --keyserver keys.openpgp.org --send-keys <key-id>
+# sign the release and deploy
+mvn clean deploy
 ---
 
 This naming strategy helps [mapstruct](http://mapstruct.org/) generate working mapping code between your domain classes
