@@ -41,16 +41,20 @@ Actual Consumer MapStruct Generated Result
 proto.getUserEnum().getNumber() // -1 (Not presented in contract, UNRECOGNIZED enum value)
 ```
 
-To fix this, we need to allow the library to handle enums as raw integer values so that even unknown values are not lost
-With this fork, we can use the raw integer value of the enum in the mapping, by enabling the flag `mapstructSpi.useEnumRawValue` as a compilerArg in the format of:
+To fix this, we need to allow the library to handle enums as raw integer 
+values so that even unknown values are not lost
+
+With this fork, we can use the raw integer value of the enum in the mapping,
+by enabling the flag `mapstructSpi.useEnumRawValue` as a compilerArg in the format of:
 
 `-AmapstructSpi.useEnumRawValue=true`
 
 ### ! Important !
-This option changes mapping way of enums
-Enum will be mapped as raw integer value, not by enum name
-In this way will be used ordingal value of enums
-So if you using enum to enum mapping, these enums should have the same order of values
+This option changes mapping way of enums.
+Enum will be mapped as raw integer value, not by enum name.
+
+In this way will be used ordinal value of enums.
+So if you using enum to enum mapping, these enums should have the same order of values.
 
 ### Maven example
 ```xml
