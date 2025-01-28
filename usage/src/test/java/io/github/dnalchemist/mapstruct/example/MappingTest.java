@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package no.entur.mapstruct.example;
+package io.github.dnalchemist.mapstruct.example;
 
 /*-
  * #%L
@@ -52,13 +52,13 @@ import org.junit.jupiter.api.Test;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 
-import no.entur.mapstruct.example.EnumPostfixOverrideProtos.EnumPostfixOverrideValuesDTO;
-import no.entur.mapstruct.example.UserProtos.UserDTO;
-import no.entur.mapstruct.spi.protobuf.Department;
-import no.entur.mapstruct.spi.protobuf.EnumPostfixOverrideValues;
-import no.entur.mapstruct.spi.protobuf.MultiNumber;
-import no.entur.mapstruct.spi.protobuf.Status;
-import no.entur.mapstruct.spi.protobuf.User;
+import io.github.dnalchemist.mapstruct.example.EnumPostfixOverrideProtos.EnumPostfixOverrideValuesDTO;
+import io.github.dnalchemist.mapstruct.example.UserProtos.UserDTO;
+import io.github.dnalchemist.mapstruct.spi.protobuf.Department;
+import io.github.dnalchemist.mapstruct.spi.protobuf.EnumPostfixOverrideValues;
+import io.github.dnalchemist.mapstruct.spi.protobuf.MultiNumber;
+import io.github.dnalchemist.mapstruct.spi.protobuf.Status;
+import io.github.dnalchemist.mapstruct.spi.protobuf.User;
 
 public class MappingTest {
 

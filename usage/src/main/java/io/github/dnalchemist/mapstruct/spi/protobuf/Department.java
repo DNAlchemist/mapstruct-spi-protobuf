@@ -1,10 +1,10 @@
-package no.entur.mapstruct.spi.protobuf;
+package io.github.dnalchemist.mapstruct.spi.protobuf;
 
 /*-
  * #%L
  * protobuf-usage
  * %%
- * Copyright (C) 2019 - 2020 Entur
+ * Copyright (C) 2018 - 2020 Entur AS and original authors
  * %%
  * Licensed under the EUPL, Version 1.1 or – as soon they will be
  * approved by the European Commission - subsequent versions of the
@@ -23,7 +23,24 @@ package no.entur.mapstruct.spi.protobuf;
  * #L%
  */
 
-public enum Status {
-	STARTED,
-	STOPPED
+/**
+ * @author Thomas Kratz
+ */
+public class Department {
+	private String name;
+
+	public Department() {
+	}
+
+	public Department(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }
