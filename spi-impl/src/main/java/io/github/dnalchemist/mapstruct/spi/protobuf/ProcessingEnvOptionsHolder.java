@@ -41,10 +41,11 @@ import com.google.common.collect.ImmutableMap;
  * would otherwise not have visibility to these.
  */
 @SupportedAnnotationTypes({})
-@SupportedOptions({ ProcessingEnvOptionsHolder.ENUM_POSTFIX_OVERRIDES })
+@SupportedOptions({ ProcessingEnvOptionsHolder.ENUM_POSTFIX_OVERRIDES, ProcessingEnvOptionsHolder.USE_ENUM_RAW_VALUE})
 public class ProcessingEnvOptionsHolder extends AbstractProcessor {
 
 	static final String ENUM_POSTFIX_OVERRIDES = "mapstructSpi.enumPostfixOverrides";
+	static final String USE_ENUM_RAW_VALUE = "mapstructSpi.useEnumRawValue";
 
 	private static Map<String, String> OPTIONS;
 

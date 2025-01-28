@@ -267,7 +267,7 @@ public class MappingTest {
 
 
     @Test
-    public void testEnumToIntMapping() throws InvalidProtocolBufferException {
+    public void testUseEnumRawValue() throws InvalidProtocolBufferException {
         User user = generateUser();
 		user.setV17(PERMISSION_D_T_O_MODERATOR.getNumber());
 		user.setRv17(Arrays.asList(PERMISSION_D_T_O_MODERATOR.getNumber(), PERMISSION_D_T_O_ADMIN.getNumber()));

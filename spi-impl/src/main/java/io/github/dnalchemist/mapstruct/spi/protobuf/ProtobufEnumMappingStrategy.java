@@ -48,6 +48,7 @@ public class ProtobufEnumMappingStrategy extends DefaultEnumMappingStrategy {
 	private static final HashMap<TypeElement, Boolean> KNOWN_ENUMS = new HashMap<>();
 
 	private Map<String, String> enumPostfixOverrides = null;
+	private Boolean useEnumRawValue = null;
 
 	/**
 	 * The enum constant postfix used as default value in protobuf, ie for enum "Cake" the default constant should be CAKE_UNSPECIFIED = 0; This is the
@@ -89,7 +90,7 @@ public class ProtobufEnumMappingStrategy extends DefaultEnumMappingStrategy {
 			// We should not map UNSPECIFIED to null, 'cause it can break int -> protobuf enum mapping
 			// Enum SHOULD ALWAYS repeat the order protobuf enum, because it's not mapped by name in that case
 			// But better TO NOT USE Enum in java code, use int instead
-			if (DEFAULT_ENUM_POSTFIX.equals(trimmedEnumValue)) {
+			if (isUseEnumRawValueEnabled() && DEFAULT_ENUM_POSTFIX.equals(trimmedEnumValue)) {
 				return false;
 			}
 
@@ -99,6 +100,13 @@ public class ProtobufEnumMappingStrategy extends DefaultEnumMappingStrategy {
 
 		}
 		return false;
+	}
+
+	private boolean isUseEnumRawValueEnabled() {
+		if (useEnumRawValue == null) {
+			useEnumRawValue = Boolean.parseBoolean(ProcessingEnvOptionsHolder.getOption(ProcessingEnvOptionsHolder.USE_ENUM_RAW_VALUE));
+		}
+		return useEnumRawValue;
 	}
 
 	@Override

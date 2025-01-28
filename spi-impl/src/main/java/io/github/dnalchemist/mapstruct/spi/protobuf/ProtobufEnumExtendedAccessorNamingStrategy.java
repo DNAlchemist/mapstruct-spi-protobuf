@@ -32,6 +32,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
 
+import org.mapstruct.ap.spi.MapStructProcessingEnvironment;
 import org.mapstruct.ap.spi.util.IntrospectorUtils;
 
 /**
@@ -43,7 +44,15 @@ import org.mapstruct.ap.spi.util.IntrospectorUtils;
 public class ProtobufEnumExtendedAccessorNamingStrategy extends ProtobufAccessorNamingStrategy {
     private static final String PROTOBUF_ENUM_INTERFACE = "com.google.protobuf.ProtocolMessageEnum";
     private static final String PROTOBUF_LITE_ENUM_INTERFACE = "com.google.protobuf.Internal.EnumLite";
+
     private final HashMap<TypeElement, Boolean> KNOWN_ENUMS = new HashMap<>();
+    private boolean useEnumRawValue = false;
+
+    @Override
+    public void init(MapStructProcessingEnvironment processingEnvironment) {
+        super.init(processingEnvironment);
+        useEnumRawValue = Boolean.parseBoolean(ProcessingEnvOptionsHolder.getOption(ProcessingEnvOptionsHolder.USE_ENUM_RAW_VALUE));
+    }
 
     public boolean isProtobufEnum(TypeMirror typeMirror) {
         TypeElement enumType = asTypeElement(typeMirror);
@@ -79,6 +88,9 @@ public class ProtobufEnumExtendedAccessorNamingStrategy extends ProtobufAccessor
 
     @Override
     public boolean isGetterMethod(ExecutableElement method) {
+        if (!useEnumRawValue) {
+            return super.isGetterMethod(method);
+        }
         String methodName = method.getSimpleName().toString();
         if (isGetterForEnumPlainIntValue(methodName)) {
             return true;
@@ -99,6 +111,9 @@ public class ProtobufEnumExtendedAccessorNamingStrategy extends ProtobufAccessor
      */
     @Override
     public String getPropertyName(ExecutableElement method) {
+        if (!useEnumRawValue) {
+            return super.getPropertyName(method);
+        }
         String methodName = method.getSimpleName().toString();
 
         if (isGetterForEnumPlainIntValue(methodName)) {

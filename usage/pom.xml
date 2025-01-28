@@ -60,6 +60,7 @@
                     </annotationProcessorPaths>
                     <compilerArgs>
                         <arg>-AmapstructSpi.enumPostfixOverrides=io.github.dnalchemist.mapstruct.example.EnumPostfixOverrideProtos=INVALID</arg>
+                        <arg>-AmapstructSpi.useEnumRawValue=true</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>
