@@ -24,6 +24,7 @@ package io.github.dnalchemist.mapstruct.spi.protobuf;
  */
 
 public enum Status {
+	UNSPECIFIED,
 	STARTED,
 	STOPPED
 }

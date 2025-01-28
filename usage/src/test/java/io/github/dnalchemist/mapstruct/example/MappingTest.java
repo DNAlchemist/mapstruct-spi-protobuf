@@ -41,12 +41,18 @@ package io.github.dnalchemist.mapstruct.example;
  * #L%
  */
 
+import static io.github.dnalchemist.mapstruct.example.UserProtos.PermissionDTO.PERMISSION_D_T_O_ADMIN;
+import static io.github.dnalchemist.mapstruct.example.UserProtos.PermissionDTO.PERMISSION_D_T_O_ADMIN_VALUE;
+import static io.github.dnalchemist.mapstruct.example.UserProtos.PermissionDTO.PERMISSION_D_T_O_MODERATOR;
+import static io.github.dnalchemist.mapstruct.example.UserProtos.PermissionDTO.PERMISSION_D_T_O_MODERATOR_VALUE;
+import static io.github.dnalchemist.mapstruct.spi.protobuf.Status.UNSPECIFIED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 
+import io.github.dnalchemist.mapstruct.spi.protobuf.Permission;
 import org.junit.jupiter.api.Test;
 
 import com.google.protobuf.ByteString;
@@ -84,7 +90,7 @@ public class MappingTest {
 
 		assertEquals(null, back.getId());
 		assertEquals("test", back.getEmail());
-		assertEquals(null, back.getV16());
+		assertEquals(UNSPECIFIED, back.getV16());
 	}
 
 	@Test
@@ -135,6 +141,7 @@ public class MappingTest {
 		user.setV14("some string");
 		user.setV15(ByteString.copyFromUtf8("byte string"));
 		user.setV16(Status.STARTED);
+		user.setV17(Permission.USER.ordinal());
 
 		user.setRv1(Arrays.asList(1.0));
 		user.setRv2(Arrays.asList(2.0f));
@@ -152,6 +159,7 @@ public class MappingTest {
 		user.setRv14(Arrays.asList("some string"));
 		user.setRv15(Arrays.asList(ByteString.copyFromUtf8("some byte string")));
 		user.setRv16(Arrays.asList(Status.STARTED));
+		user.setRv17(Arrays.asList(Permission.USER.ordinal(), Permission.ADMIN.ordinal()));
 
 		MultiNumber mm = new MultiNumber();
 		mm.setNumber(1);
@@ -256,4 +264,22 @@ public class MappingTest {
 
 		assertEquals(enumValue, back);
 	}
+
+
+    @Test
+    public void testEnumToIntMapping() throws InvalidProtocolBufferException {
+        User user = generateUser();
+		user.setV17(PERMISSION_D_T_O_MODERATOR.getNumber());
+		user.setRv17(Arrays.asList(PERMISSION_D_T_O_MODERATOR.getNumber(), PERMISSION_D_T_O_ADMIN.getNumber()));
+        UserDTO dto = UserMapper.INSTANCE.map(user);
+        UserDTO deserialized = UserDTO.parseFrom(dto.toByteArray());
+        User back = UserMapper.INSTANCE.map(deserialized);
+
+        assertNotNull(back.getRv17());
+
+        assertEquals(PERMISSION_D_T_O_MODERATOR, dto.getV17());
+        assertEquals(PERMISSION_D_T_O_MODERATOR_VALUE, back.getV17());
+        assertEquals(Arrays.asList(PERMISSION_D_T_O_MODERATOR, PERMISSION_D_T_O_ADMIN), dto.getRv17List());
+        assertEquals(Arrays.asList(PERMISSION_D_T_O_MODERATOR_VALUE, PERMISSION_D_T_O_ADMIN_VALUE), back.getRv17());
+    }
 }

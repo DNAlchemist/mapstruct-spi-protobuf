@@ -59,6 +59,7 @@ public class User {
 	String v14;
 	ByteString v15;
 	Status v16;
+	int v17;
 	User user;
 	List<Double> rv1;
 	List<Float> rv2;
@@ -76,6 +77,7 @@ public class User {
 	List<String> rv14;
 	List<ByteString> rv15;
 	List<Status> rv16;
+	List<Integer> rv17;
 	MultiNumber multiNumber;
 	List<MultiNumber> repMultiNumbers;
 	private String id;
@@ -277,6 +279,14 @@ public class User {
 		this.v16 = v16;
 	}
 
+	public int getV17() {
+		return v17;
+	}
+
+	public void setV17(int v17) {
+		this.v17 = v17;
+	}
+
 	public List<Double> getRv1() {
 		return rv1;
 	}
@@ -403,6 +413,14 @@ public class User {
 
 	public void setRv16(List<Status> rv16) {
 		this.rv16 = rv16;
+	}
+
+	public List<Integer> getRv17() {
+		return rv17;
+	}
+
+	public void setRv17(List<Integer> rv17) {
+		this.rv17 = rv17;
 	}
 
 	public MultiNumber getMultiNumber() {

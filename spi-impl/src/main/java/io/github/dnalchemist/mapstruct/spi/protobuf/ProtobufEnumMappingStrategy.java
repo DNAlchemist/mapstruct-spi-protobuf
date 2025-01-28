@@ -85,6 +85,14 @@ public class ProtobufEnumMappingStrategy extends DefaultEnumMappingStrategy {
 			}
 
 			String trimmedEnumValue = removeEnumNamePrefixFromConstant(enumType, sourceEnumValue);
+
+			// We should not map UNSPECIFIED to null, 'cause it can break int -> protobuf enum mapping
+			// Enum SHOULD ALWAYS repeat the order protobuf enum, because it's not mapped by name in that case
+			// But better TO NOT USE Enum in java code, use int instead
+			if (DEFAULT_ENUM_POSTFIX.equals(trimmedEnumValue)) {
+				return false;
+			}
+
 			if (getEnumPostfix(enumType).equals(trimmedEnumValue)) {
 				return true;
 			}

@@ -44,6 +44,7 @@ message UserDTO {
   bytes v15 = 20;
 
   EnumStatus v16 = 21;
+  PermissionDTO v17 = 22;
   // google.protobuf.Any v17 = 22;
 
   //    oneof v18 {
@@ -75,6 +76,7 @@ message UserDTO {
   repeated bytes rv15 = 114;
 
   repeated EnumStatus rv16 = 115;
+  repeated PermissionDTO rv17 = 116;
   // repeated google.protobuf.Any rv17 = 116;
 
   repeated MultiNumberDTO rep_multi_numbers = 120;
@@ -90,6 +92,7 @@ enum PermissionDTO {
   PERMISSION_D_T_O_USER = 1;
   PERMISSION_D_T_O_ADMIN = 2;
   PERMISSION_D_T_O_NONE = 3;
+  PERMISSION_D_T_O_MODERATOR = 4;
 }
 
 message DepartmentDTO {
