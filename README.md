@@ -13,6 +13,7 @@ But if the consumer's contract is outdated and doesn’t include a new enum valu
 This causes data loss and breaks Protobuf’s backward compatibility.
 
 To fix this, we need to allow the library to handle enums as raw integer values so that even unknown values are not lost
+
 Example code generation of maptruct:
 
 Producer contract
