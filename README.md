@@ -54,7 +54,7 @@ by enabling the flag `mapstructSpi.useEnumRawValue` as a compilerArg in the form
 This option changes mapping way of enums.
 Enum will be mapped as raw integer value, not by enum name.
 
-In this way will be used ordinal value of enums.
+In this way will be use ordinal value of enums.
 So if you using enum to enum mapping, these enums should have the same order of values.
 
 ### Maven example
